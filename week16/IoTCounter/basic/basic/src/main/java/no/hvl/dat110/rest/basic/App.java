@@ -1,6 +1,6 @@
 package no.hvl.dat110.rest.basic;
 
-import static spark.Spark.*;
+import spark.Spark;
 
 /**
  * Hello world!
@@ -11,11 +11,11 @@ public class App
 	public static void main(String[] args){
 		
 		if (args.length > 0) {
-			port(Integer.parseInt(args[0]));
+			Spark.port(Integer.parseInt(args[0]));
 		} else {
-			port(8080);
+			Spark.port(8080);
 		}
 		  
-        get("/hello", (request, response) -> "Hello World!");
+        Spark.get("/hello", (request, response) -> "Hello World!");
     }
 }

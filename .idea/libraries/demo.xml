@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="demo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/week8/udpmultiplexing/demo/ReceiverProcess.jar!/" />
+      <root url="jar://$PROJECT_DIR$/week8/udpmultiplexing/demo/SenderProcess.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
