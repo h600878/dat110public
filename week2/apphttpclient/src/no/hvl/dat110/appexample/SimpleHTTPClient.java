@@ -8,33 +8,35 @@ import java.net.URL;
 
 public class SimpleHTTPClient {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		System.out.print("URL:> ");
+        System.out.print("URL:> ");
 
-		Scanner scanner = new Scanner(System.in);
-		String url = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        String url = scanner.nextLine();
 
-		URL urlobj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) urlobj.openConnection();
-		con.setRequestMethod("GET");
+        URL urlobj = new URL(url);
+        // Lager en forbindelse til tjeneren
+        HttpURLConnection con = (HttpURLConnection) urlobj.openConnection();
+        con.setRequestMethod("GET");
 
-		int responseCode = con.getResponseCode();
+        int responseCode = con.getResponseCode();
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { // status code 200
+        if (responseCode == HttpURLConnection.HTTP_OK) { // status code 200
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String inputLine;
+            // Leser responsen fra tjeneren
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
 
-			while ((inputLine = in.readLine()) != null) {
-				System.out.println(inputLine);
-			}
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+            }
 
-			in.close();
-		}
+            in.close();
+        }
 
-		scanner.close();
-		con.disconnect();
+        scanner.close();
+        con.disconnect(); // Stenger tilkoplingen
 
-	}
+    }
 }
