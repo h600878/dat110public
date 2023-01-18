@@ -10,6 +10,10 @@ Consider a small network with two hosts H1 and H2 and two routers R1 and R2. H1 
 
 Assume that we have some data in a datagram that is to be sent from H1 via R1 and R2 to H2. What encapsulation and decapsulation will happen on the boundaries between the network layer and link layer along the way?
 
+##### Answer:
+
+Det vil skje encapsulation fra toppen av stabelen til H1, gjennom alle lag. Det vil skje decapsulation fra bunnen av stabelen til H2, gjennom alle lag.
+
 #### Exercise 2 - Internet protocols and time sequence diagrams
 
 Problem P3 in Chap. 2 of the networking book with the modification that you should draw a [time sequence diagram]( https://en.wikipedia.org/wiki/Sequence_diagram) showing the interaction between the different protocol entities. Time sequence diagrams are widely used in computer science to illustrate the exchange of messages in protocols.
