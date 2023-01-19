@@ -18,16 +18,21 @@ public class TCPReceiver {
 
             ServerSocket welcomeSocket = new ServerSocket(PORT);
 
-            Socket connectionSocket = welcomeSocket.accept();
+            Socket connectionSocket;
 
-            DataInputStream inFromSender = new DataInputStream(connectionSocket.getInputStream());
-
-            System.out.println("TCP Receiver reading");
-
+            DataInputStream inFromSender;
             int bytes;
             do {
+                connectionSocket = welcomeSocket.accept();
+
+                inFromSender = new DataInputStream(connectionSocket.getInputStream());
+
+                System.out.println("TCP Receiver reading");
+
                 bytes = inFromSender.read(data);
+
                 System.out.print("TCP Receiver received: ");
+
                 for (byte b : data) {
                     System.out.print(b);
                 }
