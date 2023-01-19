@@ -7,45 +7,45 @@ import java.net.Socket;
 
 public class TCPReceiver {
 
-	private static int PORT = 8081;
+    private static final int PORT = 8081;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		ServerSocket welcomeSocket = null;
-		byte[] data = new byte[4];
+        byte[] data = new byte[4];
 
-		try {
-			System.out.println("TCP Receiver starting");
+        try {
+            System.out.println("TCP Receiver starting");
 
-			welcomeSocket = new ServerSocket(PORT);
+            ServerSocket welcomeSocket = new ServerSocket(PORT);
 
-			Socket connectionSocket = welcomeSocket.accept();
+            Socket connectionSocket = welcomeSocket.accept();
 
-			DataInputStream inFromSender = new DataInputStream(connectionSocket.getInputStream());
-			
-			System.out.println("TCP Receiver reading");
-			inFromSender.read(data);
+            DataInputStream inFromSender = new DataInputStream(connectionSocket.getInputStream());
 
-			System.out.print("TCP Receiver received: ");
-			for (byte b : data) {
-				System.out.print((byte) b);
-			}
-			System.out.println();
+            System.out.println("TCP Receiver reading");
 
-			inFromSender.close();
+            int bytes;
+            do {
+                bytes = inFromSender.read(data);
+                System.out.print("TCP Receiver received: ");
+                for (byte b : data) {
+                    System.out.print(b);
+                }
+                System.out.println("\nBytes received: " + bytes);
+            } while (bytes != -1);
 
-			connectionSocket.close();
+            inFromSender.close();
+            connectionSocket.close();
+            welcomeSocket.close();
+        }
+        catch (IOException ex) {
 
-			welcomeSocket.close();
+            System.out.println("TCPServer: " + ex.getMessage());
+            ex.printStackTrace();
+            System.exit(1);
 
-		} catch (IOException ex) {
-
-			System.out.println("TCPServer: " + ex.getMessage());
-			ex.printStackTrace();
-			System.exit(1);
-
-		}
-		System.out.println("TCP Receiver stopping");
-	}
+        }
+        System.out.println("TCP Receiver stopping");
+    }
 
 }

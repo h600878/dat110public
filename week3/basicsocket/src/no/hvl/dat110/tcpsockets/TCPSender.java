@@ -6,34 +6,35 @@ import java.net.Socket;
 
 public class TCPSender {
 
-	private static String HOST = "localhost";
-	private static int PORT = 8081;
+    private static final String HOST = "localhost";
+    private static final int PORT = 8081;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Socket clientSocket = null;
-		DataOutputStream outToReceiver;
+        Socket clientSocket;
+        DataOutputStream outToReceiver;
 
-		byte[] data = { 1, 2, 3, 4 };
+        byte[] data = {1, 2, 3, 4};
 
-		try {
+        try {
 
-			clientSocket = new Socket(HOST, PORT);
+            clientSocket = new Socket(HOST, PORT);
 
-			outToReceiver = new DataOutputStream(clientSocket.getOutputStream());
+            outToReceiver = new DataOutputStream(clientSocket.getOutputStream());
 
-			outToReceiver.write(data);
+            outToReceiver.write(data);
 
-			outToReceiver.close();
-			
-			clientSocket.close();
+            outToReceiver.close();
 
-		} catch (IOException ex) {
+            clientSocket.close();
 
-			System.out.println("TCP client: " + ex.getMessage());
-			ex.printStackTrace();
-			System.exit(1);
-		}
+        }
+        catch (IOException ex) {
 
-	}
+            System.out.println("TCP client: " + ex.getMessage());
+            ex.printStackTrace();
+            System.exit(1);
+        }
+
+    }
 }

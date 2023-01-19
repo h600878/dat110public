@@ -6,41 +6,31 @@ import java.net.InetAddress;
 
 public class UDPSender {
 
-	// host name and port with whom to communicate
-	private static String RECEIVER_HOST = "localhost";
-	private static int RECEIVER_PORT = 8081;
+    // host name and port with whom to communicate
+    private static final String RECEIVER_HOST = "localhost";
+    private static final int RECEIVER_PORT = 8081;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		byte[] data = { 1, 2, 3, 4 };
-		DatagramSocket socket = null;
+        byte[] data = {1, 2, 3, 4};
 
-		System.out.println("UDPSender starting");
+        System.out.println("UDPSender starting");
+        // create socket
+        try (DatagramSocket socket = new DatagramSocket()) {
 
-		try {
+            // create a datagram
+            InetAddress address = InetAddress.getByName(RECEIVER_HOST);
+            DatagramPacket datagram = new DatagramPacket(data, data.length, address, RECEIVER_PORT);
 
-			// create socket
-			socket = new DatagramSocket();
-
-			// create a datagram
-			InetAddress address = InetAddress.getByName(RECEIVER_HOST);
-			DatagramPacket datagram = new DatagramPacket(data, data.length, address, RECEIVER_PORT);
-
-			System.out.println("UDPSender sending");
-			socket.send(datagram);
-
-		} catch (Exception ex) {
-			System.out.println("UDPSender: " + ex.getMessage());
-			ex.printStackTrace();
-
-		} finally {
-
-			if (socket != null) {
-				socket.close();
-			}
-
-		}
-
-		System.out.println("UDPSender stopped");
-	}
+            System.out.println("UDPSender sending");
+            socket.send(datagram);
+        }
+        catch (Exception ex) {
+            System.out.println("UDPSender: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally {
+            System.out.println("UDPSender stopped");
+        }
+    }
 }

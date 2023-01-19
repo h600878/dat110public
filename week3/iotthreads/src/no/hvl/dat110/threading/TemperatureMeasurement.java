@@ -1,17 +1,20 @@
 package no.hvl.dat110.threading;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class TemperatureMeasurement {
 
-	private int temp = 0;
+    private final AtomicInteger temp;
 
-	public int getTemperature() {
-		return temp;
-	}
+    public TemperatureMeasurement() {
+        temp = new AtomicInteger(0);
+    }
 
-	public void setTemperature(int temp) {
-		this.temp = temp;
-	}
-			
-	
-			
+    public int getTemperature() {
+        return temp.get();
+    }
+
+    public void setTemperature(int temp) {
+        this.temp.set(temp);
+    }
 }
