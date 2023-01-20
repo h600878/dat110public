@@ -7,53 +7,49 @@ import no.hvl.dat110.udpexample.system.Configuration;
 
 public class UDPEchoServer {
 
-	private DatagramSocket serverSocket;
+    private final DatagramSocket serverSocket;
 
-	public UDPEchoServer(int serverport) throws SocketException {
+    public UDPEchoServer(int serverport) throws SocketException {
+        serverSocket = new DatagramSocket(serverport);
+    }
 
-		serverSocket = new DatagramSocket(serverport);
-	}
+    public void process() {
 
-	public void process() {
+        byte[] recvbuf = new byte[Configuration.MAXTEXTLEN]; // Mottaker buffer
 
-		byte[] recvbuf = new byte[Configuration.MAXTEXTLEN];
+        // Siden dette er en UDP-server, så må vi lage en datagram (pakke) for å motta data
+        DatagramPacket request = new DatagramPacket(recvbuf, recvbuf.length);
 
-		DatagramPacket request = new DatagramPacket(recvbuf, recvbuf.length);
+        try {
 
-		try {
+            serverSocket.receive(request); // Venter på input fra klient
 
-			serverSocket.receive(request);
-			
-			String intext = new String(request.getData());
-			
-			System.out.println("SERVER RECEIVED: " + intext);
+            String intext = new String(request.getData()); // Lager en ny string basert på bytes fra request
 
-			String outtext = intext.toUpperCase();
-			
-			byte[] msg = outtext.getBytes();
-		
-			InetAddress ipaddress = request.getAddress();
-			int port = request.getPort();
+            System.out.println("SERVER RECEIVED: " + intext);
 
-			DatagramPacket response = new DatagramPacket(msg, msg.length, ipaddress, port);
+            String outtext = intext.toUpperCase();
 
-			System.out.println("SERVER SENDING:  " + outtext);
+            byte[] msg = outtext.getBytes(); // Konverterer string tilbake til bytes
 
-			serverSocket.send(response);
+            InetAddress ipaddress = request.getAddress();
+            int port = request.getPort();
 
-		} catch (IOException ex) {
-			
-			System.out.println("UDPServer: " + ex.getMessage());
-			ex.printStackTrace();
-			
-		} 
-	}
+            // Oppretter en respons pakke
+            DatagramPacket response = new DatagramPacket(msg, msg.length, ipaddress, port);
 
-	public void stop() {
+            System.out.println("SERVER SENDING:  " + outtext);
 
-		if (serverSocket != null) {
-			serverSocket.close();
-		}
+            // Sender respons pakken
+            serverSocket.send(response);
+        }
+        catch (IOException ex) {
+            System.out.println("UDPServer: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 
-	}
+    public void stop() {
+        serverSocket.close();
+    }
 }

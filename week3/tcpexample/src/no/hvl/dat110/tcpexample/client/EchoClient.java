@@ -7,41 +7,41 @@ import javax.swing.JOptionPane;
 
 public class EchoClient {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		String server = Configuration.SERVER;
-		int serverport = Configuration.SERVERPORT;
-		int N = Configuration.N;
-		
-		// EchoClient <server> <port>
-		if (args.length > 0) {
-			
-			server = args[0];
-			serverport = Integer.parseInt(args[1]);
-			N = Integer.parseInt(args[2]);
-		}
-			
-		TCPEchoClient tcpclient = new TCPEchoClient(server,serverport);
+        String server = Configuration.SERVER;
+        int serverport = Configuration.SERVERPORT;
+        int N = Configuration.N;
 
-		System.out.println("TCP client started: " + server + " #" + " - " + N);
-		
-		for (int i = 0; i < N; i++) {
+        // EchoClient <server> <port>
+        if (args.length > 0) {
 
-			JFrame frame = new JFrame("Converter");
+            server = args[0];
+            serverport = Integer.parseInt(args[1]);
+            N = Integer.parseInt(args[2]);
+        }
 
-			String text = JOptionPane.showInputDialog(frame, "Message to transform");
+        TCPEchoClient tcpclient = new TCPEchoClient(server, serverport);
 
-			if (text != null) {
-				
-				text = tcpclient.convert(text);
-				JOptionPane.showMessageDialog(frame, text);
-			}
-			
-		}
-			
-		System.out.println("TCP client stopped");
-		
-		System.exit(0);
+        System.out.println("TCP client started: " + server + " #" + " - " + N);
 
-	}
+        for (int i = 0; i < N; i++) {
+
+            JFrame frame = new JFrame("Converter");
+
+            String text = JOptionPane.showInputDialog(frame, "Message to transform");
+
+            if (text != null) {
+
+                text = tcpclient.convert(text);
+                JOptionPane.showMessageDialog(frame, text);
+            }
+
+        }
+
+        System.out.println("TCP client stopped");
+
+        System.exit(0);
+
+    }
 }

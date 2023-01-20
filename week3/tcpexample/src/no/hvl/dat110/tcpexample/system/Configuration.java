@@ -2,10 +2,10 @@ package no.hvl.dat110.tcpexample.system;
 
 public class Configuration {
 
-		public static int SERVERPORT = 8080;
+		public static final int SERVERPORT = 8080;
 		
-		public static String SERVER = "localhost";
+		public static final String SERVER = "localhost";
 		
-		public static int N = 3;
+		public static final int N = 3;
 		
 }

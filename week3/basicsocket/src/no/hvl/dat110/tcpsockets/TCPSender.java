@@ -22,7 +22,11 @@ public class TCPSender {
 
             outToReceiver = new DataOutputStream(clientSocket.getOutputStream());
 
-            outToReceiver.write(data);
+            try {
+                outToReceiver.write(data); // Bruker 'null' for å stoppe TCPReceiver
+            }
+            catch (NullPointerException ignored) {
+            }
 
             outToReceiver.close();
 

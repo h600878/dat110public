@@ -10,42 +10,41 @@ import no.hvl.dat110.udpexample.system.Configuration;
 
 public class EchoClient {
 
-	public static void main(String[] args) throws SocketException, UnknownHostException {
+    public static void main(String[] args) throws SocketException, UnknownHostException {
 
-		String server = Configuration.SERVER;
-		int serverport = Configuration.SERVERPORT;
-		int N = Configuration.N;
-		
-		// EchoClient <server> <port>
-		if (args.length > 0) {
-			
-			server = args[0];
-			serverport = Integer.parseInt(args[1]);
-			N = Integer.parseInt(args[2]);
-		}
+        String server = Configuration.SERVER;
+        int serverport = Configuration.SERVERPORT;
+        int N = Configuration.N; // Antall meldinger som skal sendes
 
-		UDPEchoClient udpclient = new UDPEchoClient(server, serverport);
+        // EchoClient <server> <port>
+        if (args.length > 0) {
+            server = args[0];
+            serverport = Integer.parseInt(args[1]);
+            N = Integer.parseInt(args[2]);
+        }
 
-		System.out.println("UDP client started");
-		
-		for (int i = 0; i < N; i++) {
+        UDPEchoClient udpclient = new UDPEchoClient(server, serverport);
 
-			JFrame frame = new JFrame("Converter");
+        System.out.println("UDP client started");
 
-			String text = JOptionPane.showInputDialog(frame, "Message to transform");
+        for (int i = 0; i < N; i++) {
 
-			if (text != null) {
-				
-				text = udpclient.convert(text);
-				JOptionPane.showMessageDialog(frame, text);
-			}
-			
-		}
-		
-		udpclient.stop();
-		
-		System.out.println("UDP client stopped");
+            JFrame frame = new JFrame("Converter");
 
-		System.exit(0);
-	}
+            String text = JOptionPane.showInputDialog(frame, "Message to transform");
+
+            if (text != null) {
+
+                text = udpclient.convert(text);
+                JOptionPane.showMessageDialog(frame, text);
+            }
+
+        }
+
+        udpclient.stop();
+
+        System.out.println("UDP client stopped");
+
+        System.exit(0);
+    }
 }

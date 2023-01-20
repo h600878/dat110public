@@ -7,23 +7,21 @@ import no.hvl.dat110.udpexample.system.Configuration;
 
 public class EchoServer {
 
-	public static void main(String[] args) throws SocketException, UnknownHostException {
+    public static void main(String[] args) throws SocketException {
 
-		int serverport = Configuration.SERVERPORT;
-		
-		if (args.length > 0) {			
-			
-			serverport = Integer.parseInt(args[0]);
-		}
+        int serverport = Configuration.SERVERPORT;
 
-		System.out.println("UDP Server starting ... #" + serverport);
+        // EchoServer <port>
+        if (args.length > 0) {
+            serverport = Integer.parseInt(args[0]);
+        }
 
-		UDPEchoServer udpserver = new UDPEchoServer(serverport);
-				
-		while (true) {
-			
-			udpserver.process();
-			
-		}
-	}
+        System.out.println("UDP Server starting ... #" + serverport);
+
+        UDPEchoServer udpserver = new UDPEchoServer(serverport);
+
+        while (true) {
+            udpserver.process();
+        }
+    }
 }
