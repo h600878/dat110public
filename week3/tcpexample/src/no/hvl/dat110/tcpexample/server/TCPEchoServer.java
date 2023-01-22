@@ -38,6 +38,7 @@ public class TCPEchoServer {
 
             System.out.println("SERVER SENDING: " + outtext);
 
+            Thread.sleep(1_000);
             outToClient.write(outtext.getBytes());
             outToClient.flush();
 
@@ -47,7 +48,7 @@ public class TCPEchoServer {
             connectionSocket.close();
 
         }
-        catch (IOException ex) {
+        catch (IOException | InterruptedException ex) {
 
             System.out.println("TCPServer: " + ex.getMessage());
             ex.printStackTrace();

@@ -1,15 +1,12 @@
 package no.hvl.dat110.threading;
 
+import java.util.Random;
+
 public class TemperatureSensor {
 
-	private static final int RANGE = 20;
+    private static final int RANGE = 25;
 
-	public int read() {
-
-		long seconds = System.currentTimeMillis();
-
-		double temp = RANGE * Math.sin(seconds / 1000);
-
-		return (int) Math.ceil(temp);
-	}
+    public int read() {
+        return new Random().nextInt(-RANGE, RANGE);
+    }
 }
