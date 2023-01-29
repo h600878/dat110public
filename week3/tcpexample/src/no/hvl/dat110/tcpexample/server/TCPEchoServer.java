@@ -6,10 +6,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TCPEchoServer {
 
     private final ServerSocket welcomeSocket;
+    private static final Random random = new Random();
+    private static final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public TCPEchoServer(ServerSocket welcomeSocket) {
         this.welcomeSocket = welcomeSocket;
@@ -30,30 +35,47 @@ public class TCPEchoServer {
             DataOutputStream outToClient =
                     new DataOutputStream(connectionSocket.getOutputStream());
 
-            String text = inFromClient.readLine();
+            final String text = inFromClient.readLine();
 
-            System.out.println("SERVER RECEIVED: " + text);
+            executor.execute(() -> {
+                System.out.println("SERVER RECEIVED: " + text);
 
-            String outtext = text.toUpperCase();
+                String outtext = text.toUpperCase();
 
-            System.out.println("SERVER SENDING: " + outtext);
+                sleep();
 
-            Thread.sleep(1_000);
-            outToClient.write(outtext.getBytes());
-            outToClient.flush();
+                System.out.println("SERVER SENDING: " + outtext);
 
-            outToClient.close();
-            inFromClient.close();
+                try {
+                    outToClient.write(outtext.getBytes());
+                    outToClient.flush();
 
-            connectionSocket.close();
+                    inFromClient.close();
+                    outToClient.close();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            System.out.println("SERVER CONTINUING");
 
         }
-        catch (IOException | InterruptedException ex) {
+        catch (IOException ex) {
 
             System.out.println("TCPServer: " + ex.getMessage());
             ex.printStackTrace();
             System.exit(1);
 
+        }
+    }
+
+    private void sleep() {
+        int sleep = random.nextInt(10_000) + 5_000;
+        try {
+            Thread.sleep(sleep); // Sleep for a random time between 5 and 15 seconds
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
