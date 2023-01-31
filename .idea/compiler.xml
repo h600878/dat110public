@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="basic" />
         <module name="counters" />
+        <module name="JavaRMI-Multicast-exercise" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="basic" target="1.8" />
       <module name="counters" target="1.8" />
+      <module name="JavaRMI-Multicast-exercise" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

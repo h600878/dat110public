@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/week16/IoTCounter/basic/basic/pom.xml" />
         <option value="$PROJECT_DIR$/week16/IoTCounter/counters/counters/pom.xml" />
+        <option value="$PROJECT_DIR$/week5/JavaRMI-Multicast-exercise/pom.xml" />
       </list>
     </option>
   </component>
