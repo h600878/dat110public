@@ -18,7 +18,7 @@ public class TempSensorImpl extends UnicastRemoteObject implements TempSensorInt
     private static final long serialVersionUID = 1L;
 
     private final AtomicInteger temp;
-    private CallbackInterface callback;
+    private final CallbackInterface callback;
 
     public TempSensorImpl(CallbackInterface callback) throws RemoteException {
         super();
@@ -36,9 +36,6 @@ public class TempSensorImpl extends UnicastRemoteObject implements TempSensorInt
             e.printStackTrace();
         }
         this.temp.set(temp);
-        synchronized (this) {
-            notifyAll();
-        }
         callback.notify("Temperature is set to " + temp);
     }
 
@@ -47,12 +44,11 @@ public class TempSensorImpl extends UnicastRemoteObject implements TempSensorInt
         while (!callback.isNotified()) {
             System.out.println("Waiting for temperature to be set...");
             try {
-                synchronized (this) {
-                    wait();
-                }
+                //noinspection BusyWait
+                Thread.sleep(100);
             }
             catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
         return temp.get();

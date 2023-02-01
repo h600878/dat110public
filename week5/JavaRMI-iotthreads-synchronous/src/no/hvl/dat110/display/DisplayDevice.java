@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import static no.hvl.dat110.rpcinterface.TempSensorInterface.N;
+
 public class DisplayDevice extends Thread {
 
 
@@ -23,11 +25,11 @@ public class DisplayDevice extends Thread {
             TempSensorInterface stub = (TempSensorInterface) registry.lookup(TempSensorInterface.REMOTE_IFACE_NAME);
 
             // loop 10 times and read the temp value from the TemperatureSensor each time
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < N; i++) {
                 // Get the temperature value by calling the getTemperature remote method via the object of TempSensorInterface
                 int temp = stub.getTemperature();
                 // Print the temperature value to console
-                System.out.println("Temperature: " + temp);
+                System.out.println("DisplayDevice: Temperature: " + temp);
             }
 
         }

@@ -19,7 +19,7 @@ public class TemperatureCallback extends UnicastRemoteObject implements Callback
 
     @Override
     public void notify(String result) throws RemoteException {
-        System.out.println("Temperature: " + result);
+        System.out.println("Callback: " + result);
         notified = true;
     }
 
@@ -30,7 +30,7 @@ public class TemperatureCallback extends UnicastRemoteObject implements Callback
 
     @Override
     public void acknowledge(String msg) throws RemoteException {
-        System.out.println(msg);
+        System.out.println("Callback: " + msg);
     }
 
 }

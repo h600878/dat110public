@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 
 public interface TempSensorInterface extends Remote {
 
-    int SERVER_PORT = 9091;
+    int SERVER_PORT = 9091, N = 2;
 
     String REMOTE_IFACE_NAME = "TempSensorInterface";
 

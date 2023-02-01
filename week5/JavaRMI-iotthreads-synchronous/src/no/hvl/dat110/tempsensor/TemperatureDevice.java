@@ -1,13 +1,14 @@
 package no.hvl.dat110.tempsensor;
 
 
-import no.hvl.dat110.rpcinterface.CallbackInterface;
 import no.hvl.dat110.rpcinterface.TempSensorInterface;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+
+import static no.hvl.dat110.rpcinterface.TempSensorInterface.N;
 
 public class TemperatureDevice extends Thread {
 
@@ -29,7 +30,7 @@ public class TemperatureDevice extends Thread {
             TempSensorInterface stub = (TempSensorInterface) registry.lookup(TempSensorInterface.REMOTE_IFACE_NAME);
 
             // Loop 10 times and read the temp value from the TemperatureSensor each time
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < N; i++) {
 
                 Thread thread = new Thread(() -> {
                     int temp = sn.read();
