@@ -18,12 +18,16 @@ public class TempSensorImpl extends UnicastRemoteObject implements TempSensorInt
     private static final long serialVersionUID = 1L;
 
     private final AtomicInteger temp;
-    private final CallbackInterface callback;
+    private CallbackInterface callback;
 
     public TempSensorImpl(CallbackInterface callback) throws RemoteException {
         super();
         temp = new AtomicInteger(0);
         this.callback = callback;
+    }
+
+    public TempSensorImpl() throws RemoteException {
+        this(null);
     }
 
     @Override
@@ -52,6 +56,11 @@ public class TempSensorImpl extends UnicastRemoteObject implements TempSensorInt
             }
         }
         return temp.get();
+    }
+
+    @Override
+    public void setCallback(CallbackInterface callback) throws RemoteException {
+        this.callback = callback;
     }
 
     @Override

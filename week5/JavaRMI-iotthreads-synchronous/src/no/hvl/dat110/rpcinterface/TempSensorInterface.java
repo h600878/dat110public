@@ -17,6 +17,8 @@ public interface TempSensorInterface extends Remote {
 
     int getTemperature() throws RemoteException;
 
+    void setCallback(CallbackInterface callback) throws RemoteException;
+
     CallbackInterface getCallback() throws RemoteException;
 
 }

@@ -21,13 +21,11 @@ public class TempRPCServer {
 
         try {
 
-            // create registry and start it on a port (e.g. 9091)
+            // Create registry and start it on a port (e.g. 9091)
             Registry registry = LocateRegistry.createRegistry(TempSensorInterface.SERVER_PORT);
 
-            CallbackInterface callback = new TemperatureCallback();
-
             // Make a new instance (stub) of the implementation class
-            TempSensorInterface stub = new TempSensorImpl(callback);
+            TempSensorInterface stub = new TempSensorImpl();
 
             // Bind the remote object (stub) in the registry using the name TempSensorInterface.REMOTE_IFACE_NAME
             registry.bind(TempSensorInterface.REMOTE_IFACE_NAME, stub);

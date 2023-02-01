@@ -1,7 +1,9 @@
 package no.hvl.dat110.display;
 
 
+import no.hvl.dat110.rpcinterface.CallbackInterface;
 import no.hvl.dat110.rpcinterface.TempSensorInterface;
+import no.hvl.dat110.tempsensor.TemperatureCallback;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,7 +26,9 @@ public class DisplayDevice extends Thread {
             // Look up the registry for the remote object (TempSensorInterface) using the name TempSensorInterface.REMOTE_IFACE_NAME
             TempSensorInterface stub = (TempSensorInterface) registry.lookup(TempSensorInterface.REMOTE_IFACE_NAME);
 
-            // loop 10 times and read the temp value from the TemperatureSensor each time
+            while (stub.getCallback() == null);
+
+            // Loop N times and read the temp value from the TemperatureSensor each time
             for (int i = 0; i < N; i++) {
                 // Get the temperature value by calling the getTemperature remote method via the object of TempSensorInterface
                 int temp = stub.getTemperature();
