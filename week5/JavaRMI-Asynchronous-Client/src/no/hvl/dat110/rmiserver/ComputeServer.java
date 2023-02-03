@@ -14,10 +14,10 @@ public class ComputeServer {
 
     public static void main(String[] args) {
 
-
         try {
 
-            // Start the registry
+            // Start the registry, siden vi kjører i localhost, trenger vi bare socket port
+            // Lagrer objekter som kan hentes med et gitt navn
             Registry registry = LocateRegistry.createRegistry(9010);
 
             // Make a new instance of the implementation class/callback class

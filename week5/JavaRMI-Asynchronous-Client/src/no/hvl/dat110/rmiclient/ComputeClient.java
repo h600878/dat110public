@@ -32,9 +32,9 @@ public class ComputeClient {
             // Register the clientcallback object with the remote servercallback object
             ClientCallbackInterface clientcallbackobj = new ClientCallbackImplement();
 
-            sc.registerClientCallbackObject(clientcallbackobj);  // register a callback handler for the client on the server
+            sc.registerClientCallbackObject(clientcallbackobj);  // Register a callback handler for the client on the server
 
-            // hand the remote operation to this thread to wait for the result from server
+            // Hand the remote operation to this thread to wait for the result from server
             Runnable runnable = () -> {
                 try {
                     System.out.println("Computing: " + a + " + " + b);
@@ -47,11 +47,11 @@ public class ComputeClient {
             Thread thread = new Thread(runnable);
             thread.start();
 
-            // continue with other things until this client is notified of the result from the server
+            // Continue with other things until this client is notified of the result from the server
             while (!clientcallbackobj.isNotified()) {
+                System.out.println("RPC Client still busy with other things while waiting for result...");
                 //noinspection BusyWait
                 Thread.sleep(1000);
-                System.out.println("RPC Client still busy with other things while waiting for result...");
             }
 
             System.out.println("Operation completed! Client will terminate server in 2 sec...");
