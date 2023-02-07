@@ -18,7 +18,6 @@ class CheckIntervalTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
 
 	}
 

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package no.hvl.dat110.node.client.test;
 
@@ -17,28 +17,28 @@ import no.hvl.dat110.util.Hash;
  */
 class HashTest {
 
-	/**
-	 * Test method for {@link no.hvl.dat110.util.Hash#hashOf(java.lang.String)}.
-	 */
-	@Test
-	void testHashOf() {
-		
-		BigInteger address_process1_expected = new BigInteger("53937554629190552131995290006614509577");
-		
-		BigInteger address_process1_actual = Hash.hashOf("process1");
-		
-		assertTrue(address_process1_expected.compareTo(address_process1_actual) == 0);
-	}
+    /**
+     * Test method for {@link no.hvl.dat110.util.Hash#hashOf(java.lang.String)}.
+     */
+    @Test
+    void testHashOf() {
 
-	/**
-	 * Test method for {@link no.hvl.dat110.util.Hash#addressSize()}.
-	 */
-	@Test
-	void testAddressSize() {
-		BigInteger address_space = new BigInteger("340282366920938463463374607431768211456");
-		
-		assertTrue(Hash.addressSize().compareTo(address_space) == 0);
+        BigInteger address_process1_expected = new BigInteger("53937554629190552131995290006614509577");
 
-	}
+        BigInteger address_process1_actual = Hash.hashOf("process1");
+
+        assertEquals(address_process1_expected, address_process1_actual);
+    }
+
+    /**
+     * Test method for {@link no.hvl.dat110.util.Hash#addressSize()}.
+     */
+    @Test
+    void testAddressSize() {
+        BigInteger address_space = new BigInteger("340282366920938463463374607431768211456");
+
+        assertEquals(0, Hash.addressSize().compareTo(address_space));
+
+    }
 
 }
