@@ -37,7 +37,7 @@ class HashTest {
     void testAddressSize() {
         BigInteger address_space = new BigInteger("340282366920938463463374607431768211456");
 
-        assertEquals(0, Hash.addressSize().compareTo(address_space));
+        assertEquals(address_space, Hash.addressSize());
 
     }
 
