@@ -42,14 +42,14 @@ public class Hash {
      */
     public static BigInteger addressSize() {
 
-        int addressSize = 0;
+        BigInteger addressSize = new BigInteger("2");
         try {
             // Get the digest length (Note: make this method independent of the class variables)
             MessageDigest digest = MessageDigest.getInstance("MD5");
             // Compute the number of bits = digest length * 8
             int bits = digest.getDigestLength() * 8;
             // Compute the address size = 2 ^ number of bits
-            addressSize = (int) Math.pow(2, bits);
+            addressSize = addressSize.pow(bits);
         }
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

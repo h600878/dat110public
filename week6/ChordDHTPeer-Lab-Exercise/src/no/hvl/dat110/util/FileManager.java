@@ -1,11 +1,5 @@
 package no.hvl.dat110.util;
 
-
-/**
- * @author tdoy
- * dat110 - DSLab 2
- */
-
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.util.HashSet;
@@ -14,17 +8,31 @@ import java.util.Set;
 
 import no.hvl.dat110.rpc.interfaces.NodeInterface;
 
+/**
+ * @author tdoy
+ * dat110 - DSLab 2
+ */
 public class FileManager {
 
     public static BigInteger[] createReplicaFiles(String filename, int nreplicas) {
 
+        if (nreplicas < 1) {
+            throw new IllegalArgumentException("nreplicas must be >= 1");
+        }
+        if (filename == null || filename.isEmpty()) {
+            throw new IllegalArgumentException("filename must be non-null and non-empty");
+        }
+
+        BigInteger[] replicas = new BigInteger[nreplicas];
         // Task:given a filename, create nreplicas (1 to nreplicas)- idea, append each index to the filename before hash
+        for (int i = 0; i < nreplicas; i++) {
+            // Hash the replica using the Hash.hashOf() and store it in an array
+            replicas[i] = Hash.hashOf(filename + i);
+        }
 
-        // hash the replica using the Hash.hashOf() and store it in an array
+        // Return the replicas as array of BigInteger
 
-        // return the replicas as array of BigInteger
-
-        return null;
+        return replicas;
     }
 
     /**
