@@ -1,11 +1,5 @@
 package no.hvl.dat110.util;
 
-/**
- * dat110
- *
- * @author tdoy
- */
-
 import java.math.BigInteger;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -18,6 +12,11 @@ import java.util.Map;
 
 import no.hvl.dat110.rpc.interfaces.NodeInterface;
 
+/**
+ * dat110
+ *
+ * @author tdoy
+ */
 public class Util {
 
     public static int numReplicas = 4;
@@ -25,21 +24,21 @@ public class Util {
     /**
      * @param id
      * @param pred
-     * @param node
-     * @return true if (pred < id <= node) or false otherwise
+     * @param succ
+     * @return true if (pred < id <= succ) or false otherwise
      */
-    public static boolean checkInterval(BigInteger id, BigInteger pred, BigInteger node) {
+    public static boolean checkInterval(BigInteger id, BigInteger pred, BigInteger succ) {
 
         // Hint:
         // using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
-        // The interval (6, 2) using the notation above means; pred = 6 and node = 2
+        // The interval (6, 2) using the notation above means; pred = 6 and succ = 2
+
+        // Task: given an identifier, id: check whether pred < id <= succ
+
         // if id = 4, then (6 < 4 <= 2) = false
         // if id = 9, then (6 < 9 <= 2) = true
-
-        // Task: given an identifier, id: check whether pred < id <= node
-
-
-        return false;
+        // if id = 0, then (6 < 0 <= 2) = true
+        return pred.compareTo(id) < 0 && id.compareTo(succ) <= 0;
     }
 
     public static List<String> toString(List<NodeInterface> list) throws RemoteException {
@@ -81,6 +80,7 @@ public class Util {
     /**
      * Do not modify! This is a static group of 5 processes with their names and the registry ports from which their stubs can
      * be looked up.
+     *
      * @return
      */
     public static Map<String, Integer> getProcesses() {

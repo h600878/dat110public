@@ -3,7 +3,6 @@ package no.hvl.dat110.util;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import no.hvl.dat110.rpc.interfaces.NodeInterface;

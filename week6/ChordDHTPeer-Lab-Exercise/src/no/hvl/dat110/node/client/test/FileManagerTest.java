@@ -19,7 +19,6 @@ import no.hvl.dat110.util.Util;
 
 /**
  * @author tdoy
- *
  */
 class FileManagerTest {
 
@@ -46,6 +45,7 @@ class FileManagerTest {
 
     /**
      * Test method for {@link no.hvl.dat110.util.FileManager#distributeReplicastoPeers(java.lang.String)}.
+     *
      * @throws RemoteException
      */
     @Test
