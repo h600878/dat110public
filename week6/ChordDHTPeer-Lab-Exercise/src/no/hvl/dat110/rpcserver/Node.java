@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpcserver;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,19 +16,20 @@ import no.hvl.dat110.util.Hash;
 
 public class Node extends UnicastRemoteObject implements NodeInterface {
 
-    private BigInteger nodeID;                            // BigInteger value of hash of IP address of the Node
-    private String nodename;                            // IP address of node
+    private final BigInteger nodeID;                            // BigInteger value of hash of IP address of the Node
+    private final String nodename;                            // IP address of node
     private int port;                                    // port on which the registry for this node is running
     private NodeInterface successor;
     private NodeInterface predecessor;
-    private Set<BigInteger> keys;
+    private final Set<BigInteger> keys;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public Node(String nodename) throws RemoteException {
         super();
-        keys = new HashSet<BigInteger>();
-        this.nodename = nodename;                                    // use a different name as "IP" for single machine simulation
+        this.nodename = nodename;                                  // use a different name as "IP" for single machine simulation
+        keys = new HashSet<>();
         nodeID = Hash.hashOf(nodename);                                // use the MD5  from Hash class
 
     }
@@ -79,10 +81,13 @@ public class Node extends UnicastRemoteObject implements NodeInterface {
 
     @Override
     public NodeInterface findSuccessor(BigInteger key) throws RemoteException {
-        // TODO Extra Challenge
         // Task: Given a key, find the successor of this key from the current peer
         // Note: You will need to also implement the finger table and findHighestPredecessor
-
+        for (BigInteger id : keys) {
+            if (id.equals(key)) {
+                return this;
+            }
+        }
         return null;
     }
 

@@ -5,15 +5,11 @@ import java.rmi.registry.Registry;
 
 import no.hvl.dat110.rpc.interfaces.NodeInterface;
 
-/**
- * dat110: DS Lab 2
- */
-
 
 public class NodeServer {
 
-    private String nodename;
-    private int port;
+    private final String nodename;
+    private final int port;
 
     public NodeServer(String nodename, int port) {
         this.nodename = nodename;

@@ -23,9 +23,9 @@ public class Hash {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             // compute the hash of the input 'entity'
             byte[] bytes = digest.digest(entity.getBytes());
-            // convert the hash into hex format
+            // Convert the hash into hex format
 //            String hex = toHex(bytes);
-            // convert the hex into BigInteger
+            // Convert the hex into BigInteger
             hashint = new BigInteger(1, /*hex.getBytes()*/bytes); // FIXME Virker bare uten hex
 
         }
@@ -33,7 +33,7 @@ public class Hash {
             e.getMessage();
         }
 
-        // return the BigInteger
+        // Return the hash as BigInteger
         return hashint;
     }
 
@@ -54,8 +54,8 @@ public class Hash {
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        // return the address size
 
+        // Return the address size
         return new BigInteger(String.valueOf(addressSize));
     }
 

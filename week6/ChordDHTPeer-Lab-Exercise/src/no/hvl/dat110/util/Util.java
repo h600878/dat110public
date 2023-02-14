@@ -22,27 +22,44 @@ public class Util {
     public static int numReplicas = 4;
 
     /**
-     * @param id
-     * @param pred
-     * @param succ
-     * @return true if (pred < id <= succ) or false otherwise
+     * @param current
+     * @param predecessor
+     * @param successor
+     * @return true if (predecessor < current <= successor) or false otherwise
      */
-    public static boolean checkInterval(BigInteger id, BigInteger pred, BigInteger succ) {
+    public static boolean checkInterval(BigInteger current, BigInteger predecessor, BigInteger successor) {
 
+        BigInteger modulo = new BigInteger("160");
+        current = current.mod(modulo);
+        predecessor = predecessor.mod(modulo);
+        successor = successor.mod(modulo);
         // Hint:
-        // using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
-        // The interval (6, 2) using the notation above means; pred = 6 and succ = 2
+        // Using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
+        // The interval (6, 2) using the notation above means; predecessor = 6 and successor = 2
 
-        // Task: given an identifier, id: check whether pred < id <= succ
+        // Task: given an identifier, current: check whether predecessor < current <= successor
 
-        // if id = 4, then (6 < 4 <= 2) = false
-        // if id = 9, then (6 < 9 <= 2) = true
-        // if id = 0, then (6 < 0 <= 2) = true
-        return pred.compareTo(id) < 0 && id.compareTo(succ) <= 0;
+        // If id = 4, then (6 < 4 <= 2) = false
+        // If id = 9, then (6 < 9 <= 2) = true
+        // If id = 0, then (6 < 0 <= 2) = true
+        // If id = 6, then (1 < 2 <= 3) = true
+
+        boolean isInIntervall = false;
+        BigInteger currentNode = predecessor;
+
+        while (predecessor.compareTo(current) < 0 && !currentNode.equals(successor)) {
+
+            if (currentNode.equals(current)) {
+                isInIntervall = true;
+                break;
+            }
+            currentNode = currentNode.add(BigInteger.ONE).mod(modulo);
+        }
+        return isInIntervall;
     }
 
-    public static List<String> toString(List<NodeInterface> list) throws RemoteException {
-        List<String> nodestr = new ArrayList<String>();
+    public static List<String> toString(List<NodeInterface> list) {
+        List<String> nodestr = new ArrayList<>();
         list.forEach(node ->
                 {
                     try {
@@ -53,16 +70,13 @@ public class Util {
                     }
                 }
         );
-
-
         return nodestr;
     }
 
-
     public static NodeInterface getProcessStub(String name, int port) {
 
-        NodeInterface nodestub = null;
-        Registry registry = null;
+        NodeInterface nodestub;
+        Registry registry;
         try {
             // Get the registry for this node
             registry = LocateRegistry.getRegistry(port);
@@ -71,7 +85,7 @@ public class Util {
 
         }
         catch (NotBoundException | RemoteException e) {
-            return null;            // if this call fails, then treat the node to have left the ring...or unavailable
+            return null; // if this call fails, then treat the node to have left the ring...or unavailable
         }
 
         return nodestub;
@@ -81,7 +95,7 @@ public class Util {
      * Do not modify! This is a static group of 5 processes with their names and the registry ports from which their stubs can
      * be looked up.
      *
-     * @return
+     * @return a map of process names and their registry ports
      */
     public static Map<String, Integer> getProcesses() {
 

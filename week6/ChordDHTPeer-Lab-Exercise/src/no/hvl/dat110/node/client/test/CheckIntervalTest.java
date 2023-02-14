@@ -1,12 +1,9 @@
 package no.hvl.dat110.node.client.test;
 
-
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
-import java.rmi.RemoteException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,12 +14,12 @@ import no.hvl.dat110.util.Util;
 class CheckIntervalTest {
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 
 	}
 
 	@Test
-	void test() throws InterruptedException, RemoteException {
+	void test() {
 		
 		// lower1 < id1 < upper1  (false bcos lower1 > id)
 		BigInteger id1 = new BigInteger("8256520967608282605234844990226290265");
