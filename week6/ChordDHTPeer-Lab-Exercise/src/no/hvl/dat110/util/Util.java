@@ -28,11 +28,6 @@ public class Util {
      * @return true if (predecessor < current <= successor) or false otherwise
      */
     public static boolean checkInterval(BigInteger current, BigInteger predecessor, BigInteger successor) {
-
-        BigInteger modulo = new BigInteger("160");
-        current = current.mod(modulo);
-        predecessor = predecessor.mod(modulo);
-        successor = successor.mod(modulo);
         // Hint:
         // Using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
         // The interval (6, 2) using the notation above means; predecessor = 6 and successor = 2
@@ -44,18 +39,13 @@ public class Util {
         // If id = 0, then (6 < 0 <= 2) = true
         // If id = 6, then (1 < 2 <= 3) = true
 
-        boolean isInIntervall = false;
-        BigInteger currentNode = predecessor;
-
-        while (predecessor.compareTo(current) < 0 && !currentNode.equals(successor)) {
-
-            if (currentNode.equals(current)) {
-                isInIntervall = true;
-                break;
-            }
-            currentNode = currentNode.add(BigInteger.ONE).mod(modulo);
+        if (predecessor.compareTo(current) <= 0 && current.compareTo(successor) <= 0) {
+            return true;
         }
-        return isInIntervall;
+        if (predecessor.compareTo(successor) > 0) {
+            return current.compareTo(predecessor) > 0 || current.compareTo(successor) <= 0;
+        }
+        return false;
     }
 
     public static List<String> toString(List<NodeInterface> list) {
