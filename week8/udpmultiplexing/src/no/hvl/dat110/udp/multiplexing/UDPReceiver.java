@@ -5,32 +5,30 @@ import java.net.*;
 
 public class UDPReceiver {
 
-	private DatagramSocket socket;
+    private final DatagramSocket socket;
 
-	public UDPReceiver(int port) throws SocketException {
-		socket = new DatagramSocket(port);
-	}
+    public UDPReceiver(int port) throws SocketException {
+        socket = new DatagramSocket(port);
+    }
 
-	public int receive(byte[] data) {
+public int receive(byte[] data) {
 
-		DatagramPacket datagram = new DatagramPacket(data, data.length);
+        DatagramPacket datagram = new DatagramPacket(data, data.length);
 
-		try {
+        try {
 
-			socket.receive(datagram);
+            socket.receive(datagram);
 
-		} catch (IOException ex) {
-			System.out.println("UDPSender: " + ex.getMessage());
-	        ex.printStackTrace();
-		}
+        }
+        catch (IOException ex) {
+            System.out.println("UDPSender: " + ex.getMessage());
+            ex.printStackTrace();
+        }
 
-		return datagram.getLength();
-	}
+        return datagram.getLength();
+    }
 
-	public void close() {
-
-		if (socket != null) {
-			socket.close();
-		}
-	}
+    public void close() {
+        socket.close();
+    }
 }

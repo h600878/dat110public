@@ -2,7 +2,7 @@ package no.hvl.dat110.fsms;
 
 public class Main {
 
-    public static int SLEEPTIME = 2000;
+    public static final int SLEEPTIME = 2000;
 
     public static void main(String[] args) {
 
@@ -24,7 +24,7 @@ public class Main {
 
             transmitter.do_close();
 
-            transmitter.do_send(); // what will happen?
+            transmitter.do_send(); // What will happen? Don't ask me, you wrote this code!
 
             System.out.println("Main thread - doStop");
             transmitter.doStop();

@@ -7,124 +7,129 @@ import no.hvl.dat110.stopablethreads.*;
 
 public class Transmitter extends Stopable {
 
-	private FSMState state;
-	private LinkedBlockingQueue<TransmitterEvent> eventqueue;
+    /**
+     * Tilstanden til transmitter
+     */
+    private FSMState state;
 
-	private Receiver receiver;
+    /**
+     * Kø for events som skal behandles
+     */
+    private final LinkedBlockingQueue<TransmitterEvent> eventqueue;
 
-	public Transmitter(Receiver receiver) {
-		super("Transmitter");
-		this.state = FSMState.CLOSED;
-		this.receiver = receiver;
-		eventqueue = new LinkedBlockingQueue<TransmitterEvent>();
-	}
+    /**
+     * Referanse til mottaker
+     */
+    private final Receiver receiver;
 
-	// events to be processed by this protocol entity
-	public void do_open() {
-		eventqueue.add(TransmitterEvent.DO_OPEN);
-	}
+    public Transmitter(Receiver receiver) {
+        super("Transmitter");
+        this.state = FSMState.CLOSED;
+        this.receiver = receiver;
+        eventqueue = new LinkedBlockingQueue<>();
+    }
 
-	public void do_send() {
-		eventqueue.add(TransmitterEvent.DO_SEND);
-	}
+    /**
+     * Events to be processed by this protocol entity
+     */
+    public void do_open() {
+        eventqueue.add(TransmitterEvent.DO_OPEN);
+    }
 
-	public void do_close() {
-		eventqueue.add(TransmitterEvent.DO_CLOSE);
-	}
+    public void do_send() {
+        eventqueue.add(TransmitterEvent.DO_SEND);
+    }
 
-	// fetch event from the event queue (if any)
-	private TransmitterEvent getNextEvent() {
+    public void do_close() {
+        eventqueue.add(TransmitterEvent.DO_CLOSE);
+    }
 
-		TransmitterEvent event = null;
+    /**
+     * Fetch event from the event queue (if any)
+     */
+    private TransmitterEvent getNextEvent() {
 
-		try {
+        TransmitterEvent event = null;
 
-			event = eventqueue.poll(2, TimeUnit.SECONDS);
+        try {
 
-		} catch (InterruptedException ex) {
-			System.out.println("Transmitter - doProcess " + ex.getMessage());
-			ex.printStackTrace();
-		}
+            // Henter første element i køen, venter opp til 2 sekunder på at det skal dukke opp noe
+            event = eventqueue.poll(2, TimeUnit.SECONDS);
 
-		return event;
-	}
+        }
+        catch (InterruptedException ex) {
+            System.out.println("Transmitter - doProcess " + ex.getMessage());
+            ex.printStackTrace();
+        }
 
-	// main processing loop
-	public void doProcess() {
+        return event;
+    }
 
-		switch (state) {
+    /**
+     * Main processing loop
+     */
+    @Override
+    public void doProcess() {
 
-		case CLOSED:
-			doClosed();
-			break;
+        switch (state) {
+            case CLOSED -> doClosed();
+            case OPEN -> doOpen();
+        }
+    }
 
-		case OPEN:
-			doOpen();
-			break;
+    /**
+     * Processing in the Closed state
+     */
+    public void doClosed() {
 
-		default:
-			break;
-		}
-	}
+        TransmitterEvent event = getNextEvent();
 
-	// processing in the Closed state
-	public void doClosed() {
+        if (event != null) {
 
-		TransmitterEvent event = getNextEvent();
+            System.out.println("Transmitter[" + state + "]" + "(" + event + ")");
+            if (event == TransmitterEvent.DO_OPEN) {
+                send_open();
+                state = FSMState.OPEN;
+                System.out.println("Transmitter: CLOSED -> OPEN");
+            }
+        }
+    }
 
-		if (event != null) {
+    /**
+     * Processing in the Open state
+     */
+    public void doOpen() {
 
-			System.out.println("Transmitter[" + state + "]" + "(" + event + ")");
-			switch (event) {
-			case DO_OPEN:
-				send_open();
-				state = FSMState.OPEN;
-				System.out.println("Transmitter: CLOSED -> OPEN");
-				break;
-				
-			default:
-				break;
-			}
-		}
-	}
+        TransmitterEvent event = getNextEvent();
 
-	// processing in the Open state
-	public void doOpen() {
+        if (event != null) {
 
-		TransmitterEvent event = getNextEvent();
+            System.out.println("Transmitter[" + state + "]" + "(" + event + ")");
 
-		if (event != null) {
+            switch (event) {
+                case DO_SEND -> send_data();
+                case DO_CLOSE -> {
+                    send_close();
+                    state = FSMState.CLOSED;
+                    System.out.println("Transmitter: OPEN -> CLOSED");
+                }
+            }
+        }
+    }
 
-			System.out.println("Transmitter[" + state + "]" + "(" + event + ")");
-			
-			switch (event) {
-			case DO_SEND:
-				send_data();
-				break;
-				
-			case DO_CLOSE:
-				send_close();
-				state = FSMState.CLOSED;
-				System.out.println("Transmitter: OPEN -> CLOSED");
-				break;
-				
-			default:
-				break;
-			}
-		}
-	}
+    /**
+     * Actions to that this protocol entity may perform
+     */
+    public void send_open() {
+        receiver.recv_open();
+    }
 
-	// actions to that this protocol entity may perform
-	public void send_open() {
-		receiver.recv_open();
-	}
+    public void send_data() {
+        receiver.recv_data();
+    }
 
-	public void send_data() {
-		receiver.recv_data();
-	}
-
-	public void send_close() {
-		receiver.recv_close();
-	}
+    public void send_close() {
+        receiver.recv_close();
+    }
 
 }

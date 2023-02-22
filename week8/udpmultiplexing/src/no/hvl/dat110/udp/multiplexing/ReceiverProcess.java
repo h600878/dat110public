@@ -5,51 +5,51 @@ import java.util.Arrays;
 
 public class ReceiverProcess {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		if (args.length < 1) {
-			throw new RuntimeException("usage: ReceiverProcess <port>");
-		}
+        if (args.length < 1) {
+            throw new RuntimeException("usage: ReceiverProcess <port>");
+        }
 
-		int port = Integer.parseInt(args[0]);
-		UDPReceiver receiver = null;
+        int port = Integer.parseInt(args[0]);
+        UDPReceiver receiver = null;
 
-		try {
+        try {
 
-			receiver = new UDPReceiver(port);
+            receiver = new UDPReceiver(port);
 
-			System.out.println("ReceiverProcess@" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
-			
-		} catch (Exception ex) {
+            System.out.println("ReceiverProcess@" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
 
-			System.out.println("ReceiverProcess " + ex.getMessage());
-			ex.printStackTrace();
-		}
+        }
+        catch (Exception ex) {
 
-		byte[] data = new byte[255];
+            System.out.println("ReceiverProcess " + ex.getMessage());
+            ex.printStackTrace();
+        }
 
-		boolean stop = false;
+        byte[] data = new byte[255];
 
-		while (!stop) {
+        boolean stop = false;
 
-			System.out.print("?");
+        while (!stop) {
 
-			int len = receiver.receive(data);
+            System.out.print("?");
 
-			String message = (new String(Arrays.copyOfRange(data, 0, len)));
+            assert receiver != null;
+            int len = receiver.receive(data);
 
-			System.out.println("[" + message.length() + "]" + message);
-			
-			if (message.equals("")) {
-				stop = true;
-			}
-		}
+            String message = (new String(Arrays.copyOfRange(data, 0, len)));
 
-		System.out.println("ReceiverProcess terminate");
+            System.out.println("[" + message.length() + "]" + message);
 
-		if (receiver != null) {
-			receiver.close();
-		}
-	}
+            if (message.equals("")) {
+                stop = true;
+            }
+        }
+
+        System.out.println("ReceiverProcess terminate");
+
+        receiver.close();
+    }
 
 }
