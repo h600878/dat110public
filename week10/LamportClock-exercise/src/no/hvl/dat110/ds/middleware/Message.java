@@ -1,83 +1,79 @@
 package no.hvl.dat110.ds.middleware;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 import no.hvl.dat110.ds.middleware.iface.OperationType;
 
 /**
- * 
  * @author tdoy
- *
  */
 
 public class Message implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	private int clock;
-	private int processID;
-	private OperationType optype;
-	private boolean acknowledged = false;
-	private double depositamount;
-	private double interest;
-	private double withdrawamount;
-	
-	public Message(int clock, int processID) throws RemoteException {
-		super();
-		this.clock = clock;
-		this.processID = processID;
-	}
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	public int getClock() {
-		return clock;
-	}
+    private final int clock;
+    private final int processID;
+    private OperationType optype;
+    private boolean acknowledged = false;
+    private double depositamount;
+    private double interest;
+    private double withdrawamount;
 
-	public int getProcessID() {
-		return processID;
-	}
+    public Message(int clock, int processID) {
+        super();
+        this.clock = clock;
+        this.processID = processID;
+    }
 
-	public OperationType getOptype() {
-		return optype;
-	}
+    public int getClock() {
+        return clock;
+    }
 
-	public void setOptype(OperationType optype) {
-		this.optype = optype;
-	}
+    public int getProcessID() {
+        return processID;
+    }
 
-	public boolean isAcknowledged() {
-		return acknowledged;
-	}
+    public OperationType getOptype() {
+        return optype;
+    }
 
-	public void setAcknowledged(boolean acknowledged) {
-		this.acknowledged = acknowledged;
-	}
+    public void setOptype(OperationType optype) {
+        this.optype = optype;
+    }
 
-	public double getDepositamount() {
-		return depositamount;
-	}
+    public boolean isAcknowledged() {
+        return acknowledged;
+    }
 
-	public void setDepositamount(double depositamount) {
-		this.depositamount = depositamount;
-	}
+    public void setAcknowledged(boolean acknowledged) {
+        this.acknowledged = acknowledged;
+    }
 
-	public double getInterest() {
-		return interest;
-	}
+    public double getDepositamount() {
+        return depositamount;
+    }
 
-	public void setInterest(double interest) {
-		this.interest = interest;
-	}
+    public void setDepositamount(double depositamount) {
+        this.depositamount = depositamount;
+    }
 
-	public double getWithdrawamount() {
-		return withdrawamount;
-	}
+    public double getInterest() {
+        return interest;
+    }
 
-	public void setWithdrawamount(double withdrawamount) {
-		this.withdrawamount = withdrawamount;
-	}	
+    public void setInterest(double interest) {
+        this.interest = interest;
+    }
+
+    public double getWithdrawamount() {
+        return withdrawamount;
+    }
+
+    public void setWithdrawamount(double withdrawamount) {
+        this.withdrawamount = withdrawamount;
+    }
 
 }
