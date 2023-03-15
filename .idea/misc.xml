@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/week5/JavaRMI-Multicast-exercise/pom.xml" />
         <option value="$PROJECT_DIR$/week5/CloudMQTT-IoT-Exercise/pom.xml" />
         <option value="$PROJECT_DIR$/week11/Consistency-Sequencer-Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/week11/Mutex-TokenRing-Exercise/pom.xml" />
       </list>
     </option>
   </component>
