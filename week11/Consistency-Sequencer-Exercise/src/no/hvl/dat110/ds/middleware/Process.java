@@ -1,11 +1,10 @@
 package no.hvl.dat110.ds.middleware;
 
+import no.hvl.dat110.ds.middleware.iface.OperationType;
+import no.hvl.dat110.ds.middleware.iface.ProcessInterface;
+import no.hvl.dat110.ds.util.Util;
 
-/**
- * @author tdoy
- * For demo/teaching purpose at dat110 class
- */
-
+import java.io.Serial;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -13,139 +12,169 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import no.hvl.dat110.ds.middleware.iface.OperationType;
-import no.hvl.dat110.ds.middleware.iface.ProcessInterface;
-import no.hvl.dat110.ds.util.Util;
-
+/**
+ * @author tdoy
+ * For demo/teaching purpose at dat110 class
+ */
 public class Process extends UnicastRemoteObject implements ProcessInterface {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	private List<Message> queue;					// queue for this process
-	private int processID;							// id of this process
-	private double balance = 1000;					// default balance (each replica has the same). Our goal is to keep the balance consistent
-	private Map<String, Integer> replicas;			// list of other processes including self known to this process 
-	
-	protected Process(int id) throws RemoteException {
-		super();
-		processID = id;
-		queue = new ArrayList<Message>();	
-		replicas = Util.getProcessReplicas();
-	}
-	
-	private void updateDeposit(double amount) throws RemoteException {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-		balance += amount;
-	}
-	
-	private void updateInterest(double interest) throws RemoteException {
+    private final List<Message> queue;                    // Queue for this process
+    private final int processID;                            // Id of this process
+    private double balance = 1000;                    // Default balance (each replica has the same). Our goal is to keep the balance consistent
+    private final Map<String, Integer> replicas;            // List of other processes including self known to this process
 
-		double intvalue = balance*interest;
-		balance += intvalue;
-	}
-	
-	private void updateWithdrawal(double amount) throws RemoteException {
+    protected Process(int id) throws RemoteException {
+        super();
+        processID = id;
+        queue = new ArrayList<>();
+        replicas = Util.getProcessReplicas();
+    }
 
-		balance -= amount;
-	}
-	
-	
-	private void sortQueue() {
-		// TODO
-		// sort the queue by the clock (unique time stamped given by the sequencer)
-	}
-	
-	// client initiated method
-	@Override
-	public void requestInterest(double interest) throws RemoteException {
-		// TODO 		
-		// make a new message instance and set the following:
-		// set the type of message - interest
-		// set the process ID
-		// set the interest
+    private void updateDeposit(double amount) throws RemoteException {
+        balance += amount;
+    }
 
-		// send the message to the sequencer by calling the sendMessageToSequencer
-		
+    private void updateInterest(double interest) throws RemoteException {
+        double intvalue = balance * interest;
+        balance += intvalue;
+    }
 
-	}
-	
-	// client initiated method
-	@Override
-	public void requestDeposit(double amount) throws RemoteException {
-		// TODO 		
-		// make a new message instance and set the following
-		// set the type of message - deposit
-		// set the process ID
-		// set the deposit amount
+    private void updateWithdrawal(double amount) throws RemoteException {
+        balance -= amount;
+    }
 
-		// send the message to the sequencer
+    /**
+     * Sort the queue by the clock (unique time stamped given by the sequencer)
+     */
+    private void sortQueue() {
+        queue.sort(Comparator.comparingInt(Message::getClock));
+    }
 
-	}
-	
-	// client initiated method
-	@Override
-	public void requestWithdrawal(double amount) throws RemoteException {
-		// TODO 		
-		// make a new message instance and set the following
-		// set the type of message - withdrawal
-		// set the process ID
-		// set the withdrawal amount
+    /**
+     * Client initiated method
+     *
+     * @param interest Interest rate
+     */
+    @Override
+    public void requestInterest(double interest) throws RemoteException {
 
-		// send the message to the sequencer
+        // Make a new message instance and set the following:
+        Message message = new Message();
+        // Set the type of message - interest
+        message.setOptype(OperationType.INTEREST);
+        // Set the process ID
+        message.setProcessID(processID);
+        // Set the interest
+        message.setInterest(interest);
 
-	}
-	
-	private void sendMessageToSequencer(Message message) throws RemoteException {
-		// TODO
-		
-		// get the port for the sequencer: use Util class
+        // Send the message to the sequencer by calling the sendMessageToSequencer
+        sendMessageToSequencer(message);
+    }
 
-		// get the sequencer stub: use Util class
-		
-		// using the sequencer stub, call the remote onMessageReceived method to send the message to the sequencer
+    /**
+     * Client initiated method
+     *
+     * @param amount Amount to deposit
+     */
+    @Override
+    public void requestDeposit(double amount) throws RemoteException {
 
-	}
-	
-	public void applyOperation() throws RemoteException {
-		// TODO
-		
-		// iterate over the queue
-		
-		// for each message in the queue, check the operation type
-		
-		// call the appropriate update method for the operation type and pass the value to be updated
-		
-		Util.printClock(this);
-		
-	}
-	
-	@Override
-	public void onMessageReceived(Message message) throws RemoteException {
-		// TODO
-		// upon receipt of a message, add message to the queue	
-		// check the ordering limit, if equal to queue size, start to process the following:
-			// sort the queue according to time stamped by the sequencer
-			// apply operation and commit
-			// clear the queue
+        // Make a new message instance and set the following
+        Message message = new Message();
+        // Set the type of message - deposit
+        message.setOptype(OperationType.DEPOSIT);
+        // Set the process ID
+        message.setProcessID(processID);
+        // Set the deposit amount
+        message.setDepositamount(amount);
 
-	}
-	
-	@Override
-	public double getBalance() throws RemoteException {
-		return balance;
-	}
-	
-	@Override
-	public int getProcessID() throws RemoteException {
-		return processID;
-	}
-	
-	@Override
-	public List<Message> getQueue() throws RemoteException {
-		return queue;
-	}
-	
+        // Send the message to the sequencer
+        sendMessageToSequencer(message);
+    }
+
+    /**
+     * Client initiated method
+     *
+     * @param amount Amount to withdraw
+     */
+    @Override
+    public void requestWithdrawal(double amount) throws RemoteException {
+
+        // Make a new message instance and set the following
+        Message message = new Message();
+        // Set the type of message - withdrawal
+        message.setOptype(OperationType.WITHDRAWAL);
+        // Set the process ID
+        message.setProcessID(processID);
+        // Set the withdrawal amount
+        message.setWithdrawamount(amount);
+
+        // Send the message to the sequencer
+        sendMessageToSequencer(message);
+    }
+
+    private void sendMessageToSequencer(Message message) throws RemoteException {
+
+        // Get the port for the sequencer: use Util class
+        Integer sequencerPort = replicas.get(Sequencer.SEQUENCER);
+
+        // Get the sequencer stub: use Util class
+        ProcessInterface sequenceStub = Util.getProcessStub(Sequencer.SEQUENCER, sequencerPort);
+
+        // Using the sequencer stub, call the remote onMessageReceived method to send the message to the sequencer
+        sequenceStub.onMessageReceived(message);
+    }
+
+    /**
+     * Iterate over the queue.
+     * For each message in the queue, check the operation type.
+     * Call the appropriate update method for the operation type and pass the value to be updated.
+     */
+    public void applyOperation() throws RemoteException {
+
+        for (var message : queue) {
+            switch (message.getOptype()) {
+                case DEPOSIT -> updateDeposit(message.getDepositamount());
+                case WITHDRAWAL -> updateWithdrawal(message.getWithdrawamount());
+                case INTEREST -> updateInterest(message.getInterest());
+            }
+        }
+
+        Util.printClock(this);
+    }
+
+    @Override
+    public void onMessageReceived(Message message) throws RemoteException {
+
+        // Upon receipt of a message, add message to the queue
+        queue.add(message);
+        // Check the ordering limit, if equal to queue size, start to process the following:
+        if (queue.size() >= Sequencer.ORDERINGLIMIT) {
+            // Sort the queue according to time stamped by the sequencer
+            sortQueue();
+            // Apply operation and commit
+            applyOperation();
+            // Clear the queue
+            queue.clear();
+        }
+    }
+
+    @Override
+    public double getBalance() throws RemoteException {
+        return balance;
+    }
+
+    @Override
+    public int getProcessID() throws RemoteException {
+        return processID;
+    }
+
+    @Override
+    public List<Message> getQueue() throws RemoteException {
+        return queue;
+    }
+
 }
