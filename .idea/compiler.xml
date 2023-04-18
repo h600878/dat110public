@@ -14,13 +14,5 @@
         <module name="Mutex-TokenRing-Exercise" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="basic" target="1.8" />
-      <module name="CloudMQTT-IoT-Exercise" target="1.8" />
-      <module name="Consistency-Sequencer-Exercise" target="17" />
-      <module name="counters" target="1.8" />
-      <module name="JavaRMI-Multicast-exercise" target="1.8" />
-      <module name="Mutex-TokenRing-Exercise" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

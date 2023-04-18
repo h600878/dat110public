@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/week5/CloudMQTT-IoT-Exercise/CloudMQTT-IoT-Exercise.iml" filepath="$PROJECT_DIR$/week5/CloudMQTT-IoT-Exercise/CloudMQTT-IoT-Exercise.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week11/Consistency-Sequencer-Exercise/Consistency-Sequencer-Exercise.iml" filepath="$PROJECT_DIR$/week11/Consistency-Sequencer-Exercise/Consistency-Sequencer-Exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/week16/DweetDevice/DweetDevice.iml" filepath="$PROJECT_DIR$/week16/DweetDevice/DweetDevice.iml" />
       <module fileurl="file://$PROJECT_DIR$/week5/JavaRMI-Asynchronous-Client/JavaRMI-Asynchronous-Client.iml" filepath="$PROJECT_DIR$/week5/JavaRMI-Asynchronous-Client/JavaRMI-Asynchronous-Client.iml" />
       <module fileurl="file://$PROJECT_DIR$/week5/JavaRMI-DSLab1/JavaRMI-DSLab1.iml" filepath="$PROJECT_DIR$/week5/JavaRMI-DSLab1/JavaRMI-DSLab1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week5/JavaRMI-Multicast-exercise/JavaRMI-Multicast-exercise.iml" filepath="$PROJECT_DIR$/week5/JavaRMI-Multicast-exercise/JavaRMI-Multicast-exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/week5/JavaRMI-iotthreads-synchronous/JavaRMI-iotthreads-synchronous.iml" filepath="$PROJECT_DIR$/week5/JavaRMI-iotthreads-synchronous/JavaRMI-iotthreads-synchronous.iml" />
       <module fileurl="file://$PROJECT_DIR$/week10/LamportClock-exercise/LamportClock-exercise.iml" filepath="$PROJECT_DIR$/week10/LamportClock-exercise/LamportClock-exercise.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week11/Mutex-TokenRing-Exercise/Mutex-TokenRing-Exercise.iml" filepath="$PROJECT_DIR$/week11/Mutex-TokenRing-Exercise/Mutex-TokenRing-Exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/week10/VectorClock-bulletin-exercise/VectorClock-bulletin-exercise.iml" filepath="$PROJECT_DIR$/week10/VectorClock-bulletin-exercise/VectorClock-bulletin-exercise.iml" />
       <module fileurl="file://$PROJECT_DIR$/week16/VirtualIoT/VirtualIoT.iml" filepath="$PROJECT_DIR$/week16/VirtualIoT/VirtualIoT.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week16/IoTCounter/basic/basic/basic.iml" filepath="$PROJECT_DIR$/week16/IoTCounter/basic/basic/basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/week3/basicsocket/basicsocket.iml" filepath="$PROJECT_DIR$/week3/basicsocket/basicsocket.iml" />
-      <module fileurl="file://$PROJECT_DIR$/week16/IoTCounter/counters/counters/counters.iml" filepath="$PROJECT_DIR$/week16/IoTCounter/counters/counters/counters.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dat110public.iml" filepath="$PROJECT_DIR$/.idea/dat110public.iml" />
       <module fileurl="file://$PROJECT_DIR$/week3/httpsappclient/httpsappclient.iml" filepath="$PROJECT_DIR$/week3/httpsappclient/httpsappclient.iml" />
       <module fileurl="file://$PROJECT_DIR$/week3/iotthreads/iotthreads.iml" filepath="$PROJECT_DIR$/week3/iotthreads/iotthreads.iml" />

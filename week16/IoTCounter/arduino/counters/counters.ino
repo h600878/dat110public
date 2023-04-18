@@ -66,9 +66,11 @@ void blink (int n) {
   }
 
 }
+// Kjører en gang ved oppstart
 void setup() {
 
   Serial.begin(9600);
+  // Setter opp pin-ner for knapper og LED
   pinMode(8, OUTPUT);
   pinMode(9, INPUT);
   pinMode(6, INPUT);
@@ -112,13 +114,12 @@ void setup() {
 
   blink(10);
   if (state == CONNECTED) {
-    // doGet();
-    // delay(5000);
     doGet();
     delay(5000);
   }
 }
 
+// Kjører i en evig løkke
 void loop() {
 
   while (client.available()) {
