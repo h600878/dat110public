@@ -1,31 +1,17 @@
 /**
- * 
+ *
  */
 package no.hvl.dat110.ds.middleware;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * @author tdoy
- *
  */
-public class Token implements Serializable {
+public record Token(int tokenId) implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int tokenId;
-	
-	public Token(int tokenId) {
-		this.tokenId = tokenId;
-	}
-
-	/**
-	 * @return the tokenId
-	 */
-	public int getTokenId() {
-		return tokenId;
-	}
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 }

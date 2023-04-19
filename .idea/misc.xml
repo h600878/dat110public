@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -7,6 +8,8 @@
         <option value="$PROJECT_DIR$/week16/IoTCounter/counters/counters/pom.xml" />
         <option value="$PROJECT_DIR$/week5/JavaRMI-Multicast-exercise/pom.xml" />
         <option value="$PROJECT_DIR$/week5/CloudMQTT-IoT-Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/week11/Consistency-Sequencer-Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/week11/Mutex-TokenRing-Exercise/pom.xml" />
       </list>
     </option>
   </component>

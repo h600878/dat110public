@@ -1,66 +1,64 @@
 package no.hvl.dat110.ds.middleware;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import no.hvl.dat110.ds.middleware.iface.OperationType;
 
 public class Message implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	private int processID;
-	private OperationType optype;
-	private double depositamount;
-	private double interest;
-	private double withdrawamount;
-	
-	public Message() throws RemoteException {
-		super();
-	}
+    private int processID;
+    private OperationType optype;
+    private double depositamount;
+    private double interest;
+    private double withdrawamount;
 
-	public int getProcessID() {
-		return processID;
-	}
+    public Message() {
+        super();
+    }
 
-	public void setProcessID(int processID) {
-		this.processID = processID;
-	}
+    public int getProcessID() {
+        return processID;
+    }
 
-	public OperationType getOptype() {
-		return optype;
-	}
+    public void setProcessID(int processID) {
+        this.processID = processID;
+    }
 
-	public void setOptype(OperationType optype) {
-		this.optype = optype;
-	}
+    public OperationType getOptype() {
+        return optype;
+    }
 
-	public double getDepositamount() {
-		return depositamount;
-	}
+    public void setOptype(OperationType optype) {
+        this.optype = optype;
+    }
 
-	public void setDepositamount(double depositamount) {
-		this.depositamount = depositamount;
-	}
+    public double getDepositamount() {
+        return depositamount;
+    }
 
-	public double getInterest() {
-		return interest;
-	}
+    public void setDepositamount(double depositamount) {
+        this.depositamount = depositamount;
+    }
 
-	public void setInterest(double interest) {
-		this.interest = interest;
-	}
+    public double getInterest() {
+        return interest;
+    }
 
-	public double getWithdrawamount() {
-		return withdrawamount;
-	}
+    public void setInterest(double interest) {
+        this.interest = interest;
+    }
 
-	public void setWithdrawamount(double withdrawamount) {
-		this.withdrawamount = withdrawamount;
-	}	
+    public double getWithdrawamount() {
+        return withdrawamount;
+    }
+
+    public void setWithdrawamount(double withdrawamount) {
+        this.withdrawamount = withdrawamount;
+    }
 
 }
