@@ -25,14 +25,14 @@ public class App {
 
         counters = new Counters();
 
-        after((req, res) -> {
-            res.type("application/json");
-        });
+        after((req, res) -> res.type("application/json"));
 
         get("/hello", (req, res) -> "Welcome to the IoT red green cloud service");
 
+        // Henter ut tellere
         get("/counters", (req, res) -> counters.toJson());
 
+        // Prøver å legge til en teller, og returnerer tellere
         put("/counters", (req, res) -> {
 
             Gson gson = new Gson();

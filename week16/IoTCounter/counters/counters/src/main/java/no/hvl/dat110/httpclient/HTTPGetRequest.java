@@ -8,25 +8,25 @@ import okhttp3.Response;
 
 public class HTTPGetRequest {
 
-	private static final String URL = "http://localhost:8080/counters";
-	
-	public static void main(String[] args) {
-		
-		OkHttpClient client = new OkHttpClient();
+    private static final String URL = "http://localhost:8080/counters";
 
-		Request request = new Request.Builder()
-		  .url(URL)
-		  .get()
-		  .build();
+    public static void main(String[] args) {
 
-		System.out.println(request.toString());
-		
-		try (Response response = client.newCall(request).execute()) {
-		      System.out.println (response.body().string());
-		    }
-	   catch (IOException e) {
-		   e.printStackTrace();
-	   }
-	}
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(URL)
+                .get()
+                .build();
+
+        System.out.println(request.toString());
+
+        try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.body().string());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

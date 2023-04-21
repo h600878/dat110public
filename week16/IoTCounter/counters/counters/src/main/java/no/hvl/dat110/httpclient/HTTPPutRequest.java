@@ -11,28 +11,28 @@ import okhttp3.Response;
 
 public class HTTPPutRequest {
 
-	public static final MediaType JSON
-    = MediaType.parse("application/json; charset=utf-8");
-	
-	private static final String URL = "http://localhost:8080/counters";
-	
-	public static void main(String[] args) {
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-		Counters counters = new Counters(2,4);
-		
-		OkHttpClient client = new OkHttpClient();
+    private static final String URL = "http://localhost:8080/counters";
 
-		RequestBody body = RequestBody.create(JSON, counters.toJson());
-		
-		Request request = new Request.Builder().url(URL).put(body).build();
+    public static void main(String[] args) {
 
-		System.out.println(request.toString());
+        Counters counters = new Counters(2, 4);
 
-		try (Response response = client.newCall(request).execute()) {
-			System.out.println(response.body().string());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = RequestBody.create(JSON, counters.toJson());
+
+        Request request = new Request.Builder().url(URL).put(body).build();
+
+        System.out.println(request.toString());
+
+        try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.body().string());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

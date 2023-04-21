@@ -8,30 +8,30 @@ import java.net.URL;
 
 public class UrlConnGetRequest {
 
-	private static final String URL = "http://localhost:8080/counters";
-	
-	public static void main(String[] args) throws Exception {
-		
-		URL urlobj = new URL(URL);
-		
-		HttpURLConnection con = (HttpURLConnection) urlobj.openConnection();
-		con.setRequestMethod("GET");
+    private static final String URL = "http://localhost:8080/counters";
 
-		int responseCode = con.getResponseCode();
+    public static void main(String[] args) throws Exception {
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { // status code 200
+        URL urlobj = new URL(URL);
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String inputLine;
+        HttpURLConnection con = (HttpURLConnection) urlobj.openConnection();
+        con.setRequestMethod("GET");
 
-			while ((inputLine = in.readLine()) != null) {
-				System.out.println(inputLine);
-			}
+        int responseCode = con.getResponseCode();
 
-			in.close();
-		}
+        if (responseCode == HttpURLConnection.HTTP_OK) { // Status code 200
 
-		con.disconnect();
-	}
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+            }
+
+            in.close();
+        }
+
+        con.disconnect();
+    }
 
 }

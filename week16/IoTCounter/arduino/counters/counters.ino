@@ -15,8 +15,8 @@ char pass[] = "dat110iot";    // your network password (use for WPA, or use as k
 //char server[] = "www.example.com";
 //int awsport = 8081;
 
-IPAddress server(51, 105, 124, 161);
-int port = 8080;
+IPAddress server(51, 105, 124, 161); // Definerer IP-adressen til serveren vi ønsker å koble til
+int port = 8080; // Definerer porten til serveren vi ønsker å koble til
 
 int status = WL_IDLE_STATUS;
 
@@ -44,7 +44,7 @@ void printWifiStatus() {
 int redcnt = 0;
 int greencnt = 0;
 
-int pushhandled = 0;
+int pushhandled = 0; // Passer på at knappetrykk blir behandlet kun en gang
 byte debug = 0;
 
 void printcnts () {
@@ -127,6 +127,7 @@ void loop() {
     Serial.write(c);
   }
 
+  // Leser av knappene
   int resetbtn = digitalRead(9);
   int redbtn = digitalRead(6);
   int greenbtn = digitalRead(5);
@@ -168,7 +169,7 @@ void loop() {
     digitalWrite(8, LOW);
 
     if (state == CONNECTED) {
-      doPut();
+      doPut(); // Sender en HTTP PUT request
       delay(5000);
     }
 
@@ -183,12 +184,13 @@ void loop() {
   //  client.stop();
 }
 
+// HTTP GET request
 void doGet() {
 
   client.stop();
 
   Serial.println("\ndoGet - Connecting to server...");
-  if (client.connect(server, port)) {
+  if (client.connect(server, port)) { // Kobler til serveren
     Serial.println("connected to server");
     // Make a HTTP request:
     client.println("GET /counters HTTP/1.1");
@@ -206,6 +208,7 @@ String jsonred = "{\"red\":";
 String jsongreen = ",\"green\":";
 String jsonend = "}";
 
+// HTTP PUT request
 void doPut() {
 
   client.stop();
@@ -225,7 +228,7 @@ void doPut() {
   Serial.println(clen);
 
   Serial.println("\ndoPut - Connecting to server...");
-  if (client.connect(server, port)) {
+  if (client.connect(server, port)) { // Kobler til serveren
     Serial.println("connected to server");
 
     // Make a HTTP request:
